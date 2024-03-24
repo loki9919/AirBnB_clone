@@ -1,27 +1,24 @@
 #!/usr/bin/python3
-"""Test Review"""
+"""test Review"""
 import unittest
 import pep8
 from models.base_model import BaseModel
-from models.city import City
-from models.place import Place
-from models.amenity import Amenity
-from models.state import State
 from models.review import Review
 
 
 class Testreview(unittest.TestCase):
-    def test_pep8_conformance_review(self):
-        """Test that we conform to PEP8."""
-        pep8style = pep8.StyleGuide(quiet=True)
-        result = pep8style.check_files(['models/review.py'])
+
+    def test_pep8_review(self):
+        """Test that the Review module conforms to PEP8"""
+        pep8_style = pep8.StyleGuide(quiet=True)
+        result = pep8_style.check_files(['models/review.py'])
         self.assertEqual(result.total_errors, 0,
-                         "Found code style errors (and warnings).")
+                         "found code style errors (and warnings)")
 
     def test_class(self):
-        rev1 = Review()
-        self.assertEqual(rev1.__class__.__name__, "Review")
+        rev = Review()
+        self.assertEqual(rev.__class__.__name__, "Review")
 
     def test_father(self):
-        rev1 = Review()
-        self.assertTrue(issubclass(rev1.__class__, BaseModel))
+        rev = Review()
+        self.assertTrue(issubclass(rev.__class__, BaseModel))

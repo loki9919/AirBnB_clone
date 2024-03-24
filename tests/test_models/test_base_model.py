@@ -9,14 +9,14 @@ import pep8
 
 
 class TestBaseModel(unittest.TestCase):
-    """this will test the base model class"""
+    
 
     @classmethod
     def setUpClass(cls):
         """setup for the test"""
         cls.base = BaseModel()
-        cls.base.name = "Kev"
-        cls.base.num = 20
+        cls.base.name = "loki"
+        cls.base.num = 24
 
     @classmethod
     def teardown(cls):
@@ -36,7 +36,7 @@ class TestBaseModel(unittest.TestCase):
         p = style.check_files(['models/base_model.py'])
         self.assertEqual(p.total_errors, 0, "fix pep8")
 
-    def test_checking_for_docstring_BaseModel(self):
+    def test_checking_docstring_BaseModel(self):
         """checking for docstrings"""
         self.assertIsNotNone(BaseModel.__doc__)
         self.assertIsNotNone(BaseModel.__init__.__doc__)
@@ -51,16 +51,16 @@ class TestBaseModel(unittest.TestCase):
         self.assertTrue(hasattr(BaseModel, "to_dict"))
 
     def test_init_BaseModel(self):
-        """test if the base is an instance of type BaseModel"""
+        """if the base is an instance of type BaseModel"""
         self.assertTrue(isinstance(self.base, BaseModel))
 
     def test_save_BaesModel(self):
-        """test if the save method works"""
+        """if the save method works"""
         self.base.save()
         self.assertNotEqual(self.base.created_at, self.base.updated_at)
 
     def test_to_dict_BaseModel(self):
-        """test if to_dictionary method works"""
+        """if to_dictionary method works"""
         base_dict = self.base.to_dict()
         self.assertEqual(self.base.__class__.__name__, 'BaseModel')
         self.assertIsInstance(base_dict['created_at'], str)

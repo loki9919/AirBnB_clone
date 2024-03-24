@@ -3,7 +3,7 @@
 import unittest
 import pep8
 import json
-import uuid
+from uuid import uuid4
 from datetime import datetime
 import os
 from models.base_model import BaseModel
@@ -12,15 +12,15 @@ from models.user import User
 
 
 class TestFileStorage(unittest.TestCase):
-    '''this will test the FileStorage'''
+    """test the FileStorage"""
 
     @classmethod
     def setUpClass(cls):
         """set up for test"""
         cls.user = User()
-        cls.user.first_name = "Kev"
-        cls.user.last_name = "Yo"
-        cls.user.email = "1234@yahoo.com"
+        cls.user.first_name = "loki"
+        cls.user.last_name = "lok"
+        cls.user.email = "lokmane@yahoo.com"
         cls.storage = FileStorage()
         cls.path = "file.json"
 
@@ -40,21 +40,17 @@ class TestFileStorage(unittest.TestCase):
             pass
 
     def test_pep8_FileStorage(self):
-        """Tests pep8 style"""
+        """tests pep8 style"""
         style = pep8.StyleGuide(quiet=True)
         p = style.check_files(['models/engine/file_storage.py'])
         self.assertEqual(p.total_errors, 0, "fix pep8")
 
     def test_docstring(self):
-        """
-        Test docstring
-        """
+        """test docstring"""
         self.assertIsNotNone(FileStorage.__doc__)
 
     def test_documentation(self):
-        """
-        Test documentation, created and not empty
-        """
+        """test documentation, created and not empty"""
         self.assertTrue(FileStorage.all.__doc__)
         self.assertIsNotNone(FileStorage.all.__doc__)
         self.assertTrue(FileStorage.new.__doc__)
@@ -78,15 +74,13 @@ class TestFileStorage(unittest.TestCase):
         obj = storage.all()
         user = User()
         user.id = "123455"
-        user.name = "Kevin"
+        user.name = "lokmane"
         storage.new(user)
         key = user.__class__.__name__ + "." + str(user.id)
         self.assertIsNotNone(obj[key])
 
     def test_reload_filestorage(self):
-        """
-        tests reload
-        """
+        """tests reload"""
         self.storage.save()
         Root = os.path.dirname(os.path.abspath("console.py"))
         path = os.path.join(Root, "file.json")
@@ -112,9 +106,7 @@ class TestFileStorage(unittest.TestCase):
         self.assertIs(self.storage.reload(), None)
 
     def test_save(self):
-        """
-        Testing the save method
-        """
+        """testing the save method"""
         bm = BaseModel()
         bm.save()
         self.assertTrue(os.path.exists(self.path))
