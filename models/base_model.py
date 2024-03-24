@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-Class BaseModel defines all common attributes/methods for other classes
+defines all common attributes or methods for other classes
 """
 from datetime import datetime
 from uuid import uuid4
@@ -16,8 +16,8 @@ class BaseModel:
                 if key == "updated_at" or key == "created_at":
                     my_form = "%Y-%m-%dT%H:%M:%S.%f"
                     setattr(self, key, datetime.strptime(value, my_form))
-                elif k != "__class__":
-                    setattr(self, k, v)
+                elif key != "__class__":
+                    setattr(self, key, value)
         else:
             self.id = str(uuid4())
             self.created_at = datetime.now()
@@ -25,11 +25,11 @@ class BaseModel:
             models.storage.new(self)
 
     def __str__(self):
-        """should print: [<class name>] (<self.id>) <self.__dict__>"""
+        """string representation method"""
         name = self.__class__.__name__
         id = self.id
         my_dict = str(self.__dict__)
-        return ("[" + name + "] (" + id + ") " + my_dict)
+        return f"[{name}] ({id}) {my_dict}"
 
     def save(self):
         """updates the public instance attribute updated_at with
