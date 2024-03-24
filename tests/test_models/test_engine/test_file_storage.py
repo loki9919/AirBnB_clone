@@ -18,9 +18,9 @@ class TestFileStorage(unittest.TestCase):
     def setUpClass(cls):
         """set up for test"""
         cls.user = User()
-        cls.user.first_name = "loki"
-        cls.user.last_name = "lok"
-        cls.user.email = "lokmane@yahoo.com"
+        cls.user.first_name = "Betty"
+        cls.user.last_name = "Bar"
+        cls.user.email = "airbnb@mail.com"
         cls.storage = FileStorage()
         cls.path = "file.json"
 
@@ -74,7 +74,7 @@ class TestFileStorage(unittest.TestCase):
         obj = storage.all()
         user = User()
         user.id = "123455"
-        user.name = "lokmane"
+        user.name = "Betty"
         storage.new(user)
         key = user.__class__.__name__ + "." + str(user.id)
         self.assertIsNotNone(obj[key])
