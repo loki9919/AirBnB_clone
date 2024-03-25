@@ -20,7 +20,7 @@ class TestFileStorage(unittest.TestCase):
         cls.user = User()
         cls.user.first_name = "Betty"
         cls.user.last_name = "Bar"
-        cls.user.email = "airbnb@mail.com"
+        cls.user.email = "aibnb@mail.com"
         cls.storage = FileStorage()
         cls.path = "file.json"
 
