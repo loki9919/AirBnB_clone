@@ -20,13 +20,13 @@ def check_arg(arg):
     my_list = arg.split(" ")
     key = ""
     if len(arg) < 1:
-        print("class not found")
+        print("** class dosn't exist **")
         return True
     elif my_list[0] not in classes:
-        print("class doesnt exist")
+        print("** class doesnt exist **")
         return True
     elif len(my_list) < 2:
-        print("instance id not found")
+        print("** instance id missing **")
         return True
     else:
         return False
@@ -35,8 +35,8 @@ def count(obj):
     """count instances"""
     counter = 0
     allobjs = storage.all()
-    for k, v in allobjs.items():
-        allclass = (k.split(".")[0])
+    for key, value in allobjs.items():
+        allclass = (key.split(".")[0])
         if allclass == obj:
             counter += 1
     print(counter)
@@ -86,9 +86,9 @@ class HBNBCommand(cmd.Cmd):
         """creates a new instance of BaseModel, saves it (to the JSON file)
         and prints the id"""
         if len(arg) <= 0:
-            print("class name missing")
+            print("** class name missing **")
         elif arg not in classes:
-            print("class doesnt exist")
+            print("** class doesn't exist **")
         else:
             new = eval(arg)()
             new.save()
@@ -104,7 +104,7 @@ class HBNBCommand(cmd.Cmd):
             try:
                 print(allobjs[key])
             except Exception:
-                print("instance not found")
+                print("** no instance found **")
 
     def do_destroy(self, arg):
         """deletes an instance based on the class name and id (save the
@@ -116,11 +116,11 @@ class HBNBCommand(cmd.Cmd):
                 allobjs = storage.all()
                 del allobjs[key]
                 with open("file.json", mode="w", encoding='UTF-8') as f:
-                    for k, v in allobjs.items():
-                        allobjs[k] = v.to_dict()
+                    for key, value in allobjs.items():
+                        allobjs[key] = value.to_dict()
                     json.dump(allobjs, f)
             except KeyError:
-                print("instance not found")
+                print("** no instance found **")
 
     def do_all(self, arg):
         """prints all string representation of all instances based
@@ -128,16 +128,16 @@ class HBNBCommand(cmd.Cmd):
         allobjs = storage.all()
         objlist = []
         if len(arg) <= 0:
-            for k, v in allobjs.items():
-                objlist.append(str(v))
+            for key, value in allobjs.items():
+                objlist.append(str(value))
             print(objlist)
         elif arg not in classes:
-            print("class doesnt exist")
+            print("** class doesn't exist **")
         else:
-            for k, v in allobjs.items():
-                allclass = (k.split(".")[0])
+            for key, value in allobjs.items():
+                allclass = (key.split(".")[0])
                 if allclass == arg:
-                    objlist.append(str(v))
+                    objlist.append(str(value))
             print(objlist)
 
     def do_update(self, arg):
@@ -149,9 +149,9 @@ class HBNBCommand(cmd.Cmd):
             allobjs = storage.all()
             if key in allobjs:
                 if len(my_list) < 3:
-                    print("attribute name missing")
+                    print("** attribute name missing **")
                 elif len(my_list) < 4:
-                    print("value missing")
+                    print("** value missing **")
                 else:
                     setattr(allobjs[key], my_list[2], eval(my_list[3]))
                     with open("file.json", mode="w", encoding='UTF-8') as f:
@@ -160,7 +160,7 @@ class HBNBCommand(cmd.Cmd):
                         json.dump(allobjs, f)
                     allobjs = storage.reload()
             else:
-                print("no instance found")
+                print("** no instance found **")
 
 
 if __name__ == "__main__":
