@@ -48,7 +48,7 @@ class HBNBCommand(cmd.Cmd):
 
     def precmd(self, line):
         """this method is called after the line has been input but before
-            it has been interpreted"""
+            it has been interprete"""
         if "." in line:
             args = re.split(r'\.|\(|\)|, |{|}|: ', line)
             line = args[1] + " " + args[0]
